@@ -23,15 +23,15 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseBo login(String username, String password) {
+    public ResponseBo login(String username, String password, Boolean rememberMe) {
         //对密码进行加密
         password = MD5Utils.encrypt(username, password);
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
             return ResponseBo.ok();
-        } catch (UnknownAccountException | LockedAccountException | IncorrectCredentialsException e) {
+        } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
             return ResponseBo.error(e.getMessage());
         } catch (AuthenticationException e) {
             return ResponseBo.error("认证失败！");
