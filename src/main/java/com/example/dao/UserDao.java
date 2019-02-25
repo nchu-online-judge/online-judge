@@ -1,9 +1,14 @@
-package com.example.dao;
+package main.java.com.example.dao;
 
-import com.example.doamin.User;
+import java.util.List;
 
+import main.java.com.example.domain.User;
 
-public interface UserDao {
-
-    User findByUserName(String username);
+public interface UserDao{
+	 void save(User user);
+	 void update(User user);
+	 void delete(Long id);
+	 User getById(Long id);
+	 List<User> getAll();
+	 int getTotalCount();
 }
